@@ -1,9 +1,18 @@
 #SingleInstance Force
+#UseHook
 SetMouseDelay(-1)
 SetDefaultMouseSpeed(0)
 CoordMode("Mouse", "Client")
 
 utilityMode := 0
+sandboxKey := "``"
+
+!t:: {
+    global sandboxKey
+    IB := InputBox("Enter new sandbox key:", "Sandbox Key", "w200 h100")
+    if (IB.Result = "OK" and IB.Value != "")
+        sandboxKey := IB.Value
+}
 
 !u:: {
     Suspend(-1)
@@ -23,7 +32,7 @@ utilityMode := 0
         modeStr := "SLOW"
     else
         modeStr := "FAST"
-    ToolTip("alt+o = demote all`nalt+p = kick all`nalt+i = toggle mode`nalt+u = toggle macro active`nalt+y = End script`nMode: " modeStr "`n3 = spam unknown entity`n4 = spam walls`n5 = whirlpool kill`n6 = spam polygons`n7 = spam heal`n8 = arena size change")
+    ToolTip("alt+o = demote all`nalt+p = kick all`nalt+i = toggle mode`nalt+u = toggle macro active`nalt+y = End script`nalt+t = change sandbox key`nMode: " modeStr "`n3 = spam unknown entity`n4 = spam walls`n5 = whirlpool kill`n6 = spam polygons`n7 = spam heal`n8 = arena size change")
     SetTimer(() => ToolTip(), -5000)
 }
 
@@ -74,72 +83,77 @@ utilityMode := 0
 #HotIf utilityMode > 0
 
 3:: {
+    global sandboxKey
     if (utilityMode = 2) {
-        SendInput("{] down}")
+        SendInput("{" sandboxKey " Down}")
         Loop 50
             SendInput("ch")
-        SendInput("{] up}")
+        SendInput("{" sandboxKey " Up}")
     } else {
-        Send("{] down}")
+        Send("{" sandboxKey " Down}")
         Loop 20
             Send("ch")
-        Send("{] up}")
+        Send("{" sandboxKey " Up}")
     }
 }
 
 4:: {
+    global sandboxKey
     if (utilityMode = 2) {
-        SendInput("{] down}")
+        SendInput("{" sandboxKey " Down}")
         Loop 50
             SendInput("x")
-        SendInput("{] up}")
+        SendInput("{" sandboxKey " Up}")
     } else {
-        Send("{] down}")
+        Send("{" sandboxKey " Down}")
         Loop 20
             Send("x")
-        Send("{] up}")
+        Send("{" sandboxKey " Up}")
     }
 }
 
 5:: {
+    global sandboxKey
     if (utilityMode = 2) {
-        SendInput("{] down}")
+        SendInput("{" sandboxKey " Down}")
         Loop 50
             SendInput("wk")
-        SendInput("{] up}")
+        SendInput("{" sandboxKey " Up}")
     } else {
-        Send("{] down}")
+        Send("{" sandboxKey " Down}")
         Loop 20
             Send("wk")
-        Send("{] up}")
+        Send("{" sandboxKey " Up}")
     }
 }
 
 6:: {
+    global sandboxKey
     if (utilityMode = 2) {
-        SendInput("{] down}")
+        SendInput("{" sandboxKey " Down}")
         Loop 50
             SendInput("f")
-        SendInput("{] up}")
+        SendInput("{" sandboxKey " Up}")
     } else {
-        Send("{] down}")
+        Send("{" sandboxKey " Down}")
         Loop 20
             Send("f")
-        Send("{] up}")
+        Send("{" sandboxKey " Up}")
     }
 }
 
 7:: {
+    global sandboxKey
     if (utilityMode = 2) {
-        SendInput("{] down}")
+        SendInput("{" sandboxKey " Down}")
         Loop 50
             SendInput("h")
-        SendInput("{] up}")
+        SendInput("{" sandboxKey " Up}")
     } else {
-        Send("{] down}")
+        Send("{" sandboxKey " Down}")
         Loop 20
             Send("h")
-        Send("{] up}")
+        Send("{" sandboxKey " Up}")
     }
 }
 
