@@ -1,3 +1,89 @@
+#NoEnv
+#SingleInstance Force
+SetWorkingDir %A_ScriptDir%
+SendMode Input
+SetMouseDelay -1
+SetDefaultMouseSpeed 0
+CoordMode Mouse, Client
+
+utilityMode := 0
+
+!u::
+Suspend Toggle
+if A_IsSuspended
+    ToolTip Macro SUSPENDED
+else
+    ToolTip Macro ACTIVE
+SetTimer, RemoveToolTip, 2000
+return
+
+!y::
+ExitApp
+return
+
+!h::
+if (utilityMode = 0)
+    modeStr := "OFF"
+else if (utilityMode = 1)
+    modeStr := "SLOW"
+else
+    modeStr := "FAST"
+ToolTip alt+o = demote all`nalt+p = kick all`nalt+i = toggle mode`nalt+u = toggle macro active`nalt+y = End script`nMode: %modeStr%`n3 = spam unknown entity`n4 = spam walls`n5 = whirlpool kill`n6 = spam polygons`n7 = spam heal`n8 = arena size change
+SetTimer, RemoveToolTip, 5000
+return
+
+!p::
+Loop, 14 {
+    y := 259 + (A_Index - 1) * 45
+    Click 440, %y%
+}
+Loop, 50 {
+    Send {WheelDown}
+}
+Loop, 14 {
+    y := 259 + (A_Index - 1) * 45
+    Click 440, %y%
+}
+return
+
+!o::
+Loop, 14 {
+    y := 256 + (A_Index - 1) * 45
+    Click 405, %y%
+    Click 405, %y%
+    Click 405, %y%
+}
+Loop, 50 {
+    Send {WheelDown}
+}
+Loop, 14 {
+    y := 256 + (A_Index - 1) * 45
+    Click 405, %y%
+    Click 405, %y%
+    Click 405, %y%
+}
+return
+
+!i::
+utilityMode := utilityMode + 1
+if (utilityMode > 2)
+    utilityMode := 0
+if (utilityMode = 0)
+    ToolTip Utility Mode: OFF
+else if (utilityMode = 1)
+    ToolTip Utility Mode: SLOW
+else if (utilityMode = 2)
+    ToolTip Utility Mode: FAST
+SetTimer, RemoveToolTip, 2000
+return
+
+RemoveToolTip:
+SetTimer, RemoveToolTip, Off
+ToolTip
+return
+
+#If utilityMode > 0
+
 3::
 if (utilityMode = 2) {
     SendInput {] down}
